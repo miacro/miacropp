@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+include(./cmakes/root.cmake)
+add_subdirectory(${MPP_ROOT}/src ${platform}/src)
+add_subdirectory(${MPP_ROOT}/lib ${platform}/lib)
+add_subdirectory(${MPP_ROOT}/examples ${platform}/examples)
+add_subdirectory(${MPP_ROOT}/test ${platform}/test)

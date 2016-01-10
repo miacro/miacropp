@@ -1,0 +1,5 @@
+set(mpp_link_library ${mpp_link_library} miacropp)
+add_subdirectory(base64 base64_test)
+add_subdirectory(sha sha_test)
+add_subdirectory(boost boost_test)
+add_subdirectory(echo echo_test)
