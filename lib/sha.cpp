@@ -9,10 +9,10 @@
  */
 #include "sha.hpp"
 using namespace miacropp::sha;
-const sha1_type::UNIT_T sha1_type::H[5] = {0x67452301, 0xEFCDAB89, 0x98BADCFE,
-                                           0x10325476, 0xC3D2E1F0};
-const sha1_type::UNIT_T sha1_type::K[80] = {0};
-const sha224_type::UNIT_T sha224_type::K[sha224_type::K_COUNT] = {
+const sha1_type::unit_type sha1_type::H[5] = {
+    0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
+const sha1_type::unit_type sha1_type::K[80] = {0};
+const sha224_type::unit_type sha224_type::K[sha224_type::K_COUNT] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1,
     0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
     0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786,
@@ -25,11 +25,11 @@ const sha224_type::UNIT_T sha224_type::K[sha224_type::K_COUNT] = {
     0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
     0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
 
-const sha224_type::UNIT_T sha224_type::H[8] = {
+const sha224_type::unit_type sha224_type::H[8] = {
     0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
     0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4};
 
-const sha256_type::UNIT_T sha256_type::K[sha256_type::K_COUNT] = {
+const sha256_type::unit_type sha256_type::K[sha256_type::K_COUNT] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1,
     0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
     0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786,
@@ -41,11 +41,11 @@ const sha256_type::UNIT_T sha256_type::K[sha256_type::K_COUNT] = {
     0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a,
     0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
     0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
-const sha256_type::UNIT_T sha256_type::H[8] = {
+const sha256_type::unit_type sha256_type::H[8] = {
     0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
     0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};
 
-const sha384_type::UNIT_T sha384_type::K[sha384_type::K_COUNT] = {
+const sha384_type::unit_type sha384_type::K[sha384_type::K_COUNT] = {
     0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f,
     0xe9b5dba58189dbbc, 0x3956c25bf348b538, 0x59f111f1b605d019,
     0x923f82a4af194f9b, 0xab1c5ed5da6d8118, 0xd807aa98a3030242,
@@ -73,12 +73,12 @@ const sha384_type::UNIT_T sha384_type::K[sha384_type::K_COUNT] = {
     0x28db77f523047d84, 0x32caab7b40c72493, 0x3c9ebe0a15c9bebc,
     0x431d67c49c100d4c, 0x4cc5d4becb3e42b6, 0x597f299cfc657e2a,
     0x5fcb6fab3ad6faec, 0x6c44198c4a475817};
-const sha384_type::UNIT_T sha384_type::H[8] = {
+const sha384_type::unit_type sha384_type::H[8] = {
     0xcbbb9d5dc1059ed8, 0x629a292a367cd507, 0x9159015a3070dd17,
     0x152fecd8f70e5939, 0x67332667ffc00b31, 0x8eb44a8768581511,
     0xdb0c2e0d64f98fa7, 0x47b5481dbefa4fa4};
 
-const sha512_type::UNIT_T sha512_type::K[sha512_type::K_COUNT] = {
+const sha512_type::unit_type sha512_type::K[sha512_type::K_COUNT] = {
     0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f,
     0xe9b5dba58189dbbc, 0x3956c25bf348b538, 0x59f111f1b605d019,
     0x923f82a4af194f9b, 0xab1c5ed5da6d8118, 0xd807aa98a3030242,
@@ -106,7 +106,7 @@ const sha512_type::UNIT_T sha512_type::K[sha512_type::K_COUNT] = {
     0x28db77f523047d84, 0x32caab7b40c72493, 0x3c9ebe0a15c9bebc,
     0x431d67c49c100d4c, 0x4cc5d4becb3e42b6, 0x597f299cfc657e2a,
     0x5fcb6fab3ad6faec, 0x6c44198c4a475817};
-const sha512_type::UNIT_T sha512_type::H[8] = {
+const sha512_type::unit_type sha512_type::H[8] = {
     0x6a09e667f3bcc908, 0xbb67ae8584caa73b, 0x3c6ef372fe94f82b,
     0xa54ff53a5f1d36f1, 0x510e527fade682d1, 0x9b05688c2b3e6c1f,
     0x1f83d9abfb41bd6b, 0x5be0cd19137e2179};

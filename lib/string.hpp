@@ -17,18 +17,18 @@ namespace miacropp
 {
   class MPP_EXPORT string : public std::string
   {
-    typedef std::string INHERITED_TYPE;
+    typedef std::string inherited_type;
 
    public:
-    // using INHERITED_TYPE::INHERITED_TYPE;
-    using INHERITED_TYPE::substr;
-    using INHERITED_TYPE::replace;
+    // using inherited_type::inherited_type;
+    using inherited_type::substr;
+    using inherited_type::replace;
 
     string() noexcept;
     string(const char *, size_type const);
 
     template <class T>
-    string(T &&str) noexcept : INHERITED_TYPE(std::forward<T>(str))
+    string(T &&str) noexcept : inherited_type(std::forward<T>(str))
     {
     }
 
@@ -36,7 +36,7 @@ namespace miacropp
     string &operator=(T &&other) noexcept
     {
       this->clear();
-      INHERITED_TYPE::operator=(std::forward<T>(other));
+      inherited_type::operator=(std::forward<T>(other));
       return (*this);
     }
     ~string() noexcept;

@@ -23,11 +23,11 @@
 namespace miacropp
 {
 #ifdef MPP_LINUX
-  typedef void* DLL_HANDLE;
+  typedef void* Dll_Handle;
 #endif  // MPP_LINUX
 
 #ifdef MPP_WIN32
-  typedef HMODULE DLL_HANDLE;
+  typedef HMODULE Dll_Handle;
 #endif  // MPP_WIN32
   class MPP_EXPORT dll
   {
@@ -50,7 +50,7 @@ namespace miacropp
     void get_last_error();
 
    protected:
-    DLL_HANDLE handle_;
+    Dll_Handle handle_;
     string error_;
   };
 };

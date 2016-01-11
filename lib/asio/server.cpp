@@ -18,7 +18,7 @@ server::listen(uint16_t port)
   ip::tcp::acceptor new_acceptor(this->io_service_,
                                  ip::tcp::endpoint(ip::tcp::v4(), port), true);
   this->acceptor_ = std::move(new_acceptor);
-  static auto accept_handler = [this](boost::asio::yield_context yield)
+  auto accept_handler = [this](boost::asio::yield_context yield)
   {
     while (true)
     {
@@ -45,6 +45,6 @@ server::listen(uint16_t port)
       }
     }
   };
-  boost::asio::spawn(this->io_service_, accept_handler);
+  boost::asio::spawn(this->io_service_, std::move(accept_handler));
   std::cout << "listening on " << port << std::endl;
 }

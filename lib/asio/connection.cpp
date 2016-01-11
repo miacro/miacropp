@@ -27,7 +27,7 @@ connection::async_write(const char* data, size_t length)
         this->socket_, boost::asio::buffer(data, length), yield[ec]);
     std::cout << "write " << write_size << " bytes." << std::endl;
   };
-  boost::asio::spawn(this->read_strand_, read_handler);
+  boost::asio::spawn(this->read_strand_, std::move(read_handler));
   return true;
 }
 
@@ -42,7 +42,7 @@ connection::async_read(size_t length)
         this->socket_, boost::asio::buffer(buffer), yield[ec]);
     std::cout << "read " << read_size << " bytes." << std::endl;
   };
-  boost::asio::spawn(this->read_strand_, read_handler);
+  boost::asio::spawn(this->read_strand_, std::move(read_handler));
   return buffer;
 }
 
@@ -50,8 +50,7 @@ bool
 connection::async_connect(const std::string& host, uint16_t port)
 {
   ip::tcp::endpoint endpoint(ip::address::from_string(host), port);
-  static auto connect_handler = [this,
-                                 endpoint](boost::asio::yield_context yield)
+  auto connect_handler = [this, endpoint](boost::asio::yield_context yield)
   {
     boost::system::error_code error_code;
     this->socket_.async_connect(endpoint, yield[error_code]);
@@ -67,6 +66,6 @@ connection::async_connect(const std::string& host, uint16_t port)
       this->socket_.close();
     }
   };
-  boost::asio::spawn(this->io_service_, connect_handler);
+  boost::asio::spawn(this->io_service_, std::move(connect_handler));
   return true;
 }
