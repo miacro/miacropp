@@ -46,9 +46,9 @@ namespace miacropp
       ~connection() {}
 
      public:
-      bool async_write(const char* data, size_t length);
-      std::vector<char> async_read(size_t length);
-      bool async_connect(const std::string& host, uint16_t port);
+      void async_write(const char* data, size_t length);
+      void async_read(size_t length);
+      void async_connect(const std::string& host, uint16_t port);
 
      protected:
       boost::asio::io_service& io_service_;

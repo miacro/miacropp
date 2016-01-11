@@ -36,6 +36,7 @@ server::listen(uint16_t port)
           socket.close();
           return;
         }
+        peer->async_read(10);
       }
       else
       {
