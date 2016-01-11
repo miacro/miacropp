@@ -27,6 +27,8 @@ server::listen(uint16_t port)
       this->acceptor_.async_accept(socket, yield[ec]);
       if (!ec)
       {
+        if (this->acceptor_.is_open() == false)
+          return;
         std::printf("accept a new connection\n");
         auto peer = std::make_shared<connection>(std::move(socket));
         if (this->connection_manager_.add(peer) == false)

@@ -49,20 +49,21 @@ connection::async_read(size_t length)
 bool
 connection::async_connect(const std::string& host, uint16_t port)
 {
-  auto connect_handler = [&](boost::asio::yield_context yield)
+  ip::tcp::endpoint endpoint(ip::address::from_string(host), port);
+  static auto connect_handler = [this,
+                                 endpoint](boost::asio::yield_context yield)
   {
-    boost::system::error_code address_ec;
-    ip::tcp::endpoint endpoint(ip::address::from_string(host, address_ec),
-                               port);
-    boost::system::error_code connect_ec;
-    this->socket_.async_connect(endpoint, yield[connect_ec]);
-    if (!connect_ec)
+    boost::system::error_code error_code;
+    this->socket_.async_connect(endpoint, yield[error_code]);
+    if (this->socket_.is_open() == false)
+      return;
+    if (!error_code)
     {
       std::printf("connect to remote\n");
     }
     else
     {
-      std::cout << connect_ec.message() << std::endl;
+      std::cout << error_code.message() << std::endl;
       this->socket_.close();
     }
   };
