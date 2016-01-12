@@ -10,20 +10,22 @@
 
 #include "server.hpp"
 #include "connection.hpp"
+#include "echo_handler.hpp"
 using namespace miacropp::asio;
 using namespace boost::asio;
+using namespace boost::system;
 void
 server::listen(uint16_t port)
 {
-  ip::tcp::acceptor new_acceptor(this->io_service_,
-                                 ip::tcp::endpoint(ip::tcp::v4(), port), true);
+  acceptor new_acceptor(this->io_service_,
+                        ip::tcp::endpoint(ip::tcp::v4(), port), true);
   this->acceptor_ = std::move(new_acceptor);
-  auto accept_handler = [this](boost::asio::yield_context yield)
+  auto accept_handler = [this](yield_context yield)
   {
     while (true)
     {
-      boost::system::error_code ec;
-      ip::tcp::socket socket(this->io_service_);
+      error_code ec;
+      connection::socket socket(this->io_service_);
       this->acceptor_.async_accept(socket, yield[ec]);
       if (!ec)
       {
@@ -36,7 +38,7 @@ server::listen(uint16_t port)
           socket.close();
           return;
         }
-        peer->async_read(10);
+        echo_handler::handle(peer);
       }
       else
       {
@@ -46,6 +48,6 @@ server::listen(uint16_t port)
       }
     }
   };
-  boost::asio::spawn(this->io_service_, std::move(accept_handler));
+  spawn(this->io_service_, std::move(accept_handler));
   std::cout << "listening on " << port << std::endl;
 }

@@ -21,6 +21,10 @@ namespace miacropp
     class connection_manager
     {
      public:
+      typedef boost::shared_mutex shared_mutex;
+      typedef std::unordered_set<connection_ptr> connection_set;
+
+     public:
       connection_manager() {}
       connection_manager(const connection_manager&) = delete;
       connection_manager(connection_manager&&) = delete;
@@ -33,8 +37,8 @@ namespace miacropp
       bool remove(connection_ptr);
 
      private:
-      boost::shared_mutex shared_mutex_;
-      std::unordered_set<connection_ptr> connections_;
+      shared_mutex shared_mutex_;
+      connection_set connections_;
     };
   };
 };

@@ -18,7 +18,11 @@ namespace miacropp
     class server
     {
      public:
-      server(boost::asio::io_service& ios)
+      typedef boost::asio::io_service io_service;
+      typedef boost::asio::ip::tcp::acceptor acceptor;
+
+     public:
+      server(io_service& ios)
           : io_service_(ios), acceptor_(io_service_), connection_manager_()
       {
       }
@@ -33,8 +37,8 @@ namespace miacropp
       void listen(uint16_t port);
 
      private:
-      boost::asio::io_service& io_service_;
-      boost::asio::ip::tcp::acceptor acceptor_;
+      io_service& io_service_;
+      acceptor acceptor_;
       connection_manager connection_manager_;
     };
   };
