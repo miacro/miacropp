@@ -17,16 +17,17 @@ using namespace miacropp::asio;
 int
 main(int argc, char** argv)
 {
-  if (argc < 2)
+  if (argc < 3)
   {
-    std::cout << "echo_client run_count" << std::endl;
+    std::cout << "echo_client port run_count" << std::endl;
     return 0;
   }
   std::string arg1 = argv[1];
-  size_t total_count = std::stoi(arg1);
+  uint16_t port_num = std::stoi(arg1);
+  std::string arg2 = argv[2];
+  size_t total_count = std::stoi(arg2);
 
   std::string host("127.0.0.1");
-  uint16_t port_num = 56000;
   std::vector<char> data(1024);
   std::string read_string("test data");
   size_t read_size = read_string.length();
