@@ -1,6 +1,9 @@
 set(target_name miacropp)
 #add_subdirectory(websocket websocket)
 add_subdirectory(asio asio)
+if(UNIX)
+  add_subdirectory(epoll epoll)
+endif()
 
 set(target_files ${src_list}
   ${CMAKE_CURRENT_SOURCE_DIR}/string.cpp
