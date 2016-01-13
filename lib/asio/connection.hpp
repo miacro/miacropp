@@ -43,9 +43,13 @@ namespace miacropp
       ~connection() {}
 
      public:
-      void async_connect(const std::string& host, uint16_t port);
       socket& get_socket();
       io_service& get_io_service();
+      void close();
+
+     public:
+      void async_connect(const std::string& host, uint16_t port);
+      bool connect(const std::string& host, uint16_t port);
 
      protected:
       io_service& io_service_;

@@ -14,7 +14,7 @@ main(int, char**)
 {
   const uint16_t port_num = 56000;
   boost::asio::io_service io_service;
-  miacropp::asio::server server(io_service);
+  miacropp::asio::echo_server server(io_service);
   server.listen(port_num);
   io_service.run();
   return 0;

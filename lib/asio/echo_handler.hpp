@@ -22,15 +22,34 @@ namespace miacropp
       typedef boost::asio::strand strand;
 
      public:
-      explicit echo_handler() = delete;
+      explicit echo_handler(connection_ptr connection) : connection_(connection)
+      {
+      }
       virtual ~echo_handler() {}
-      explicit echo_handler(const echo_handler&) = delete;
-      explicit echo_handler(echo_handler&&) = delete;
-      echo_handler& operator=(const echo_handler&) = delete;
-      echo_handler& operator=(echo_handler&&) = delete;
+      explicit echo_handler(const echo_handler& other)
+          : connection_(other.connection_)
+      {
+      }
+      explicit echo_handler(echo_handler&& other)
+          : connection_(std::move(other).connection_)
+      {
+      }
+      echo_handler& operator=(const echo_handler& other)
+      {
+        this->connection_ = other.connection_;
+        return *this;
+      }
+      echo_handler& operator=(echo_handler&& other)
+      {
+        this->connection_ = std::move(other).connection_;
+        return *this;
+      }
 
      public:
-      static void handle(connection_ptr);
+      void handle();
+
+     private:
+      connection_ptr connection_;
     };
   };
 };

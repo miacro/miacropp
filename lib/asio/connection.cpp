@@ -29,7 +29,7 @@ connection::async_connect(const std::string& host, uint16_t port)
       return;
     if (!error_code)
     {
-      std::printf("connect to remote\n");
+      //    std::printf("connect to remote\n");
     }
     else
     {
@@ -38,6 +38,27 @@ connection::async_connect(const std::string& host, uint16_t port)
     }
   };
   spawn(this->io_service_, std::move(connect_handler));
+}
+
+bool
+connection::connect(const std::string& host, uint16_t port)
+{
+  ip::tcp::endpoint endpoint(address::from_string(host), port);
+  error_code error_code;
+  this->socket_.connect(endpoint, error_code);
+  if (this->socket_.is_open() == false)
+    return false;
+  if (!error_code)
+  {
+    //  std::printf("connect to remote\n");
+    return true;
+  }
+  else
+  {
+    std::cout << error_code.message() << std::endl;
+    this->socket_.close();
+  }
+  return false;
 }
 
 connection::socket&
@@ -50,4 +71,10 @@ connection::io_service&
 connection::get_io_service()
 {
   return this->io_service_;
+}
+
+void
+connection::close()
+{
+  this->socket_.close();
 }

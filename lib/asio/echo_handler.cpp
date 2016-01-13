@@ -16,32 +16,32 @@ using namespace boost::asio;
 using namespace boost::system;
 
 void
-echo_handler::handle(connection_ptr peer)
+echo_handler::handle()
 {
-  auto handler = [peer](yield_context yield)
+  auto handler = [this](yield_context yield)
   {
     std::vector<char> data(1024);
     while (true)
     {
       error_code read_error;
-      auto read_size =
-          peer->get_socket().async_read_some(buffer(data), yield[read_error]);
-      std::cout << std::string(data.data(), read_size) << std::endl;
+      auto read_size = this->connection_->get_socket().async_read_some(
+          buffer(data), yield[read_error]);
+      // std::cout << std::string(data.data(), read_size) << std::endl;
       if (read_error)
       {
-        std::cout << read_error.message() << std::endl;
+        // std::cout << read_error.message() << std::endl;
         break;
       }
       error_code write_error;
-      async_write(peer->get_socket(), buffer(data, read_size),
+      async_write(this->connection_->get_socket(), buffer(data, read_size),
                   yield[write_error]);
       if (write_error)
       {
-        std::cout << write_error.message() << std::endl;
+        //   std::cout << write_error.message() << std::endl;
         break;
       }
     };
-    peer->get_socket().close();
+    this->connection_->get_socket().close();
   };
-  spawn(peer->get_io_service(), std::move(handler));
+  spawn(this->connection_->get_io_service(), std::move(handler));
 }
