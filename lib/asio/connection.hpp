@@ -40,7 +40,7 @@ namespace miacropp
       explicit connection(connection&& other) = delete;
       connection& operator=(const connection&) = delete;
       connection& operator=(connection&&) = delete;
-      ~connection() {}
+      virtual ~connection() { this->close(); }
 
      public:
       socket& get_socket();

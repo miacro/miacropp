@@ -25,6 +25,7 @@ connection::async_connect(const std::string& host, uint16_t port)
     ip::tcp::endpoint endpoint(address::from_string(host), port);
     error_code error_code;
     this->socket_.async_connect(endpoint, yield[error_code]);
+    this->socket_.set_option(boost::asio::socket_base::reuse_address(true));
     if (this->socket_.is_open() == false)
       return;
     if (!error_code)
@@ -46,6 +47,7 @@ connection::connect(const std::string& host, uint16_t port)
   ip::tcp::endpoint endpoint(address::from_string(host), port);
   error_code error_code;
   this->socket_.connect(endpoint, error_code);
+  this->socket_.set_option(boost::asio::socket_base::reuse_address(true));
   if (this->socket_.is_open() == false)
     return false;
   if (!error_code)

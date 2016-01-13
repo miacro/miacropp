@@ -18,7 +18,8 @@ using namespace boost::system;
 void
 echo_handler::handle()
 {
-  auto handler = [this](yield_context yield)
+  auto self = this->shared_from_this();
+  auto handler = [this, self](yield_context yield)
   {
     std::vector<char> data(1024);
     while (true)

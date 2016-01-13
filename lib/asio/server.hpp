@@ -71,11 +71,11 @@ namespace miacropp
             // std::printf("accept a new connection\n");
             auto peer = std::make_shared<connection>(std::move(socket));
             auto handler = std::make_shared<Handler>(peer);
-            if (this->handler_manager_.add(handler) == false)
-            {
-              socket.close();
-              return;
-            }
+            // if (this->handler_manager_.add(handler) == false)
+            //{
+            //  socket.close();
+            //  return;
+            //}
             handler->handle();
           }
           else

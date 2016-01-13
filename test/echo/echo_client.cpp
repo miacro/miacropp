@@ -15,16 +15,22 @@
 #include <cstring>
 using namespace miacropp::asio;
 int
-main(int, char**)
+main(int argc, char** argv)
 {
+  if (argc < 2)
+  {
+    std::cout << "echo_client run_count" << std::endl;
+    return 0;
+  }
+  std::string arg1 = argv[1];
+  size_t total_count = std::stoi(arg1);
+
   std::string host("127.0.0.1");
   uint16_t port_num = 56000;
   std::vector<char> data(1024);
-  std::string read_string;
-  std::cin >> read_string;
+  std::string read_string("test data");
   size_t read_size = read_string.length();
   std::memcpy(data.data(), read_string.c_str(), read_string.length());
-  size_t total_count = 10000;
   auto start_time = std::chrono::steady_clock::now();
   while (total_count--)
   {
@@ -34,6 +40,7 @@ main(int, char**)
     // std::this_thread::sleep_for(std::chrono::seconds(2));
     client->get_socket().write_some(boost::asio::buffer(data, read_size));
     read_size = client->get_socket().read_some(boost::asio::buffer(data));
+    client->close();
   };
   auto end_time = std::chrono::steady_clock::now();
   auto expired_time = std::chrono::duration<double>(end_time - start_time);
