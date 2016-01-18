@@ -7,3 +7,4 @@ set(target_files ${target_name}.cpp)
 generate_test(${target_name} ${target_files})
 
 add_subdirectory(ace_echo ace_echo_test)
+add_subdirectory(epoll_echo epoll_echo_test)
