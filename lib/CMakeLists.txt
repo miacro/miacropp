@@ -10,7 +10,6 @@ set(target_files ${src_list}
   ${CMAKE_CURRENT_SOURCE_DIR}/utils.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/dll.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/base64.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/sha.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/uuid.cpp
   )
 
