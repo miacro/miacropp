@@ -1,4 +1,4 @@
-cur_dir=`pwd`
+cur_dir=$(realpath .)
 bin=${cur_dir}/bin
 build_dir=${cur_dir}/build
 parser_dir=${cur_dir}/src/parser
